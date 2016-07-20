@@ -56,15 +56,42 @@ function differences(element) {
 }
 
 function reapply(element) {
-  let $children =  $(`.${element}`).children();
-  Object.keys(difference).forEach(key => {
-    let $target = undefined;
-    if (key === element) {
-      $target = $(element);
-    } else {
-      $target = $children.eq(key);
-    }
+  let $children =  $(`.${element}`).find('*');
+  // Object.keys(difference).forEach(key => {
+  // for (var i = Object.keys(difference).length-1; i >= 0; i--) {
+  var i = Object.keys(difference).length-1;
+  let running = false;
+  var outerInterval = window.setInterval(
+    function() {
+      if (!running) {
+        running = true;
+        let key = Object.keys(difference)[i];
+        let $target = undefined;
+        if (key === element) {
+          $target = $(element);
+        } else {
+          $target = $children.eq(key);
+        }
 
-    $target.css(difference[key]);
-  });
+        let j = 0;
+        var innerInterval = window.setInterval(
+          function () {
+            if (j < Object.keys(difference[key]).length) {
+              setTimeout(function () {
+                $target.css(Object.keys(difference[key])[j], difference[key][Object.keys(difference[key])[j]]);
+                j++;
+                console.log(Object.keys(difference[key])[j]);
+                console.log(difference[key][Object.keys(difference[key])[j]]);
+              }, 1000);
+            } else {
+              window.clearInterval(innerInterval);
+              running = false;
+              i--;
+              if (i < 0) {
+                window.clearInterval(outerInterval);
+              }
+            }
+          }, 1000);
+        }
+    }, 1000);
 }
