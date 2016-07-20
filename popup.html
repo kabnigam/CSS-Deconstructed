@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CSS Deconstructed</title>
+    <script src='jquery.min.js'></script>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" href="master.css" media="screen" title="no title" charset="utf-8">
+
+  </head>
+  <body>
+    <h1>CSS Deconstructed</h1>
+    <p>Enter the element on the page that you would like to deconstruct. If using a selector, you can specify the selector and either a class or id. If going soley by class or id, you may only enter one or the other. </p>
+    <form id="form" action="index.html" method="post">
+      <label for="selector">
+        Selector
+      </label>
+      <input type="text" name="selector" value="">
+      <label for="Class">
+        Class
+      </label>
+      <input type="text" name="Class" value="">
+      <label for="Id">
+        Id
+      </label>
+      <input type="text" name="Id" value="">
+      <input id='pageSubmit' type="button" name="submit" value="Deconstruct!">
+    </form>
+  </body>
+</html>

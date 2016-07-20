@@ -1,21 +1,46 @@
+document.addEventListener('DOMContentLoaded', function() {
+
+  document.getElementById('pageSubmit').addEventListener("click", () => {
+    getInput(this);
+  }, false);
+}, false);
+
+function getInput(target) {
+
+  document.getElementById('pageSubmit').removeEventListener("click", function() {
+    getInput(this);
+  }, false);
+  $('#pageSubmit').attr('value', 'Build!');
+  let form = document.getElementById('form');
+  let el = parseInput(form.childNodes[3].value, form.childNodes[7].value, form.childNodes[11].value);
+  $('#pageSubmit').on('click', build.bind(null, el));
+}
+
+function build(element) {
+  $('#pageSubmit').off('click');
+  reapply(element);
+}
+
 var original = {};
 var difference = {};
 
 function parseInput(selector, klass, id) {
   let element = '';
-  if (selector) {
+  debugger
+  if (selector !== '') {
     element += selector;
     if (klass) {
       element += '.' + klass;
     } else if (id) {
       element += '#' + id;
     }
-  } else if (klass) {
+  } else if (klass !==  '') {
     element += '.' + klass;
-  } else if (id) {
+  } else if (id !==  '') {
     element += '#' + id;
   }
   getOriginal(element);
+  return element;
 }
 
 function getOriginal(element) {
@@ -32,7 +57,7 @@ function getOriginal(element) {
       original[j][styles[key]] = $children.eq(j).css(styles[key]);
     }
   });
-
+  reset(element);
 }
 
 function reset(element) {
@@ -46,7 +71,7 @@ function reset(element) {
     }
 
   });
-
+  differences(element);
 }
 
 
