@@ -1,12 +1,20 @@
 label {
   display: block;
-  color: #0a840f;
+  color: beige;
   margin-top: 5px;
 }
 
 #pageSubmit {
   display: block;
   margin: 0 auto;
+  width: 120px;
+    background-color: green;
+    color: white;
+    border: none;
+}
+
+#pageSubmit:hover {
+  cursor: pointer;
 }
 
 #time-label {
@@ -15,7 +23,7 @@ label {
 
 h1 {
   text-align: center;
-  color: #0a840f;
+  color: beige;
 
 }
 
@@ -30,13 +38,16 @@ body {
   /*background: -webkit-linear-gradient(top, #0a9fe6 0%,#53cbf1 60%,#87e0fd 100%); /* Chrome10-25,Safari5.1-6 */*/
   /*background: linear-gradient(to bottom, #0a9fe6 0%,#53cbf1 60%,#87e0fd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */*/
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#87e0fd',GradientType=0 );*/*/
-  color: black;
+  color: white;
   /*font-family: 'Roboto', sans-serif;*/
-  background-color: beige;
+  background-color: #2b2b21;
+font-family: 'Droid Sans', sans-serif;
 }
 
 p {
   margin: 10px;
+  color: white;
+  font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
 form {
@@ -50,6 +61,7 @@ width: 126px;
 
 input {
   border-radius: 7px;
+
 }
 
 #changes {
