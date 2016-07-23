@@ -3,6 +3,33 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('pageSubmit').addEventListener("click", () => {
     getInput(this);
   }, false);
+
+  document.getElementById('class_input').addEventListener("input", () => {
+    if (document.getElementById('class_input').value !== '') {
+      $('#id_input').prop('disabled', true);
+      $('#id_input').css('background-color','gray');
+    } else {
+      $('#id_input').prop('disabled', false);
+      $('#id_input').css('background-color','white');
+    }
+
+
+  $('a').on('click', function() {
+    $('#changes').css('display', 'block');
+  });
+
+  }, false);
+
+  document.getElementById('id_input').addEventListener("input", () => {
+    if (document.getElementById('id_input').value !== '') {
+      $('#class_input').prop('disabled', true);
+      $('#class_input').css('background-color','gray');
+    } else {
+      $('#class_input').prop('disabled', false);
+      $('#class_input').css('background-color','white');
+    }
+  }, false);
+
 }, false);
 
 function getInput(target) {
@@ -12,21 +39,67 @@ function getInput(target) {
   }, false);
   $('#pageSubmit').attr('value', 'Build!');
   let form = document.getElementById('form');
-  let el = parseInput(form.childNodes[3].value, form.childNodes[7].value, form.childNodes[11].value);
+  let el = parseInput(form.childNodes[3].value, form.childNodes[7].value, form.childNodes[11].value, form.childNodes[15].value);
   $('#pageSubmit').on('click', build.bind(null, el));
 }
 
 function build(element) {
   $('#pageSubmit').off('click');
-  reapply(element);
+  $('#pageSubmit').attr('value', 'Building...');
+  $('#pageSubmit').prop('disabled', true);
+  let current_element = '';
+  let current_value = '';
+  chrome.tabs.executeScript({code: 'var element = ' + JSON.stringify(element)}, function() {
+    chrome.tabs.executeScript({code: 'var deconstruct = false'}, function () {
+      chrome.tabs.executeScript({file: 'jquery.min.js'}, function() {
+        chrome.tabs.executeScript({file: 'content_script.js'}, function() {
+
+          chrome.runtime.onMessage.addListener(
+            function(message, sender, sendResponse) {
+              var out = document.getElementById("changes");
+              var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
+
+
+              if(isScrolledToBottom) {
+                
+                out.scrollTop = out.scrollHeight - out.clientHeight;
+
+              }
+                switch(message.type) {
+                    case "change_element":
+                      if (current_element !== message.value) {
+
+                        $('#changes').append(`<h2>${message.value}</h2>`);
+                        current_element = message.value;
+                        break;
+                      }
+                    case "change_value":
+                      if (current_value !== message.value) {
+                        $('#changes').append(`<h4>${message.value}</h4>`);
+                        current_value = message.value;
+                        break;
+
+                      }
+                }
+            }
+          );
+          $('#pageSubmit').attr('value', 'Deconstruct!');
+          $('#pageSubmit').prop('disabled', false);
+          document.getElementById('pageSubmit').addEventListener("click", () => {
+            getInput(this);
+          }, false);
+        });
+      });
+    });
+  });
+
 }
 
-var original = {};
-var difference = {};
 
-function parseInput(selector, klass, id) {
+
+function parseInput(selector, klass, id, time) {
   let element = '';
-  debugger
+
   if (selector !== '') {
     element += selector;
     if (klass) {
@@ -39,101 +112,14 @@ function parseInput(selector, klass, id) {
   } else if (id !==  '') {
     element += '#' + id;
   }
-  getOriginal(element);
-  return element;
-}
-
-function getOriginal(element) {
-  original[element] = {};
-  let $children = $(`.${element}`).children();
-  for (var i = 0; i < $children.length; i++) {
-    original[i] = {};
-  }
-  let styles = window.getComputedStyle((document.getElementsByClassName(element)[0]));
-  Object.keys(styles).forEach(key => {
-    original[element][styles[key]] = styles[styles[key]];
-
-    for (var j = 0; j < $children.length; j++) {
-      original[j][styles[key]] = $children.eq(j).css(styles[key]);
-    }
-  });
-  reset(element);
-}
-
-function reset(element) {
-
-  let $children = $(`.${element}`).children();
-  let styles = window.getComputedStyle((document.getElementsByClassName(element)[0]));
-  Object.keys(styles).forEach(key => {
-    $(`.${element}`).css(styles[key], 'initial');
-    for (var j = 0; j < $children.length; j++) {
-      $children.eq(j).css(styles[key], 'initial');
-    }
-
-  });
-  differences(element);
-}
-
-
-function differences(element) {
-
-  Object.keys(original).forEach(key => {
-    difference[key] = {};
-  });
-  let $children = $(`.${element}`).children();
-  Object.keys(original).forEach(key => {
-    let styles = {};
-
-    if (key === element) {
-      styles = window.getComputedStyle((document.getElementsByClassName(element)[0]));
-    } else {
-      styles = window.getComputedStyle($children[key]);
-    }
-    Object.keys(original[key]).forEach(prop => {
-      if (original[key][prop] !== styles[prop]) {
-        difference[key][prop] = original[key][prop];
-      }
+  chrome.tabs.executeScript({code: 'var element = ' + JSON.stringify(element)}, function() {
+    chrome.tabs.executeScript({code: 'var deconstruct = true'}, function () {
+      chrome.tabs.executeScript({code: 'var time = ' + JSON.stringify(time)}, function () {
+        chrome.tabs.executeScript({file: 'jquery.min.js'}, function() {
+          chrome.tabs.executeScript({file: 'content_script.js'});
+        });
+      });
     });
   });
-}
-
-function reapply(element) {
-  let $children =  $(`.${element}`).find('*');
-  // Object.keys(difference).forEach(key => {
-  // for (var i = Object.keys(difference).length-1; i >= 0; i--) {
-  var i = Object.keys(difference).length-1;
-  let running = false;
-  var outerInterval = window.setInterval(
-    function() {
-      if (!running) {
-        running = true;
-        let key = Object.keys(difference)[i];
-        let $target = undefined;
-        if (key === element) {
-          $target = $(element);
-        } else {
-          $target = $children.eq(key);
-        }
-
-        let j = 0;
-        var innerInterval = window.setInterval(
-          function () {
-            if (j < Object.keys(difference[key]).length) {
-              setTimeout(function () {
-                $target.css(Object.keys(difference[key])[j], difference[key][Object.keys(difference[key])[j]]);
-                j++;
-                console.log(Object.keys(difference[key])[j]);
-                console.log(difference[key][Object.keys(difference[key])[j]]);
-              }, 1000);
-            } else {
-              window.clearInterval(innerInterval);
-              running = false;
-              i--;
-              if (i < 0) {
-                window.clearInterval(outerInterval);
-              }
-            }
-          }, 1000);
-        }
-    }, 1000);
+  return element;
 }

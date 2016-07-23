@@ -1,3 +1,60 @@
 label {
   display: block;
+  color: #0a840f;
+  margin-top: 5px;
+}
+
+#pageSubmit {
+  display: block;
+  margin: 0 auto;
+}
+
+#time-label {
+  display: inline;
+}
+
+h1 {
+  text-align: center;
+  color: #0a840f;
+
+}
+
+a {
+  margin: 25%
+}
+
+
+body {
+  /*background-color: #0a9fe6;
+  background: -moz-linear-gradient(top, #0a9fe6 0%, #53cbf1 60%, #87e0fd 100%); /* FF3.6-15 */
+  /*background: -webkit-linear-gradient(top, #0a9fe6 0%,#53cbf1 60%,#87e0fd 100%); /* Chrome10-25,Safari5.1-6 */*/
+  /*background: linear-gradient(to bottom, #0a9fe6 0%,#53cbf1 60%,#87e0fd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */*/
+  /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05abe0', endColorstr='#87e0fd',GradientType=0 );*/*/
+  color: black;
+  /*font-family: 'Roboto', sans-serif;*/
+  background-color: beige;
+}
+
+p {
+  margin: 10px;
+}
+
+form {
+  margin: 0 auto;
+width: 126px;
+}
+
+#time {
+  margin-top: 10px;
+}
+
+input {
+  border-radius: 7px;
+}
+
+#changes {
+  overflow-y:auto;
+  height: 100px;
+  color: red;
+  display: none;
 }

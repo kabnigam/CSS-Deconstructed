@@ -13,14 +13,15 @@
   "background": {
     "scripts": ["jquery.min.js"],
     "persistent": false
-  },  
+  },
 
   "content_scripts": [ {
-   "js": [ "jquery.min.js", "popup.js" ],
+   "js": [ "jquery.min.js", "content_script.js" ],
    "matches": [ "http://*/*", "https://*/*"]
  }],
 
   "permissions": [
-   "activeTab"
+   "activeTab",
+   "storage"
    ]
 }
