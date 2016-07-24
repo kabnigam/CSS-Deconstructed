@@ -18,7 +18,6 @@ function getOriginal(element) {
   }
 
   let doc = '';
-
   let styles = {};
   if (element[0] === '.') {
 
@@ -30,7 +29,6 @@ function getOriginal(element) {
 
     styles = window.getComputedStyle((document.querySelectorAll(element)[0]));
   }
-  // Object.keys(styles).forEach(key => {
   for (var i = 0; i < Object.keys(styles).slice(0,258).length; i++) {
     let key = Object.keys(styles)[i];
     original[element][styles[key]] = styles[styles[key]];
@@ -133,23 +131,16 @@ function reapply(element, time) {
 
         var innerInterval = window.setInterval(
           function () {
-
             if (j < Object.keys(difference[key]).length) {
-              // setTimeout(function () {
                 $target.css(Object.keys(difference[key])[j], difference[key][Object.keys(difference[key])[j]]);
                 j++;
                 if (Object.keys(difference[key])[j]) {
-
                   chrome.runtime.sendMessage({type: "change_value", value: `${Object.keys(difference[key])[j]}: ${difference[key][Object.keys(difference[key])[j]]}`});
                 }
-                // console.log(Object.keys(difference[key])[j]);
-                // console.log(difference[key][Object.keys(difference[key])[j]]);
-              // }, time);
             } else {
               window.clearInterval(innerInterval);
               running = false;
               i++;
-
               if (i > Object.keys(difference).length-1) {
                 window.clearInterval(outerInterval);
               }

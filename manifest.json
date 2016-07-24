@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "CSS Deconstructed",
-  "description": "This extension breaks down then re-applies the CSS (one rule at at time) for a specific element",
-  "version": "0.0.0.1",
+  "description": "This extension breaks down then reapplies the CSS (one rule at at time) for a specific element",
+  "version": "0.0.0.2",
 
   "browser_action": {
    "default_icon": "icon.png",
