@@ -14,16 +14,16 @@ CSS Deconstructed is a chrome extension written in JavaScript and jQuery that al
 
 ## Images
 Finding the element to deconstruct using Dev Tools
-![Alt text](./shot2.png?raw=true "Optional Title")
+![Alt text](./images/shot2.png?raw=true "Optional Title")
 
 After full deconstruction of element
-![Alt text](./shot3.png?raw=true "Optional Title")
+![Alt text](./images/shot3.png?raw=true "Optional Title")
 
 In the middle of element reconstruction
-![Alt text](./shot4.png?raw=true "Optional Title")
+![Alt text](./images/shot4.png?raw=true "Optional Title")
 
 After full reconstruction
-![Alt text](./shot1.png?raw=true "Optional Title")
+![Alt text](./images/shot1.png?raw=true "Optional Title")
 
 
 
