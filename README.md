@@ -41,7 +41,7 @@ let el = parseInput(form.childNodes[3].value, form.childNodes[7].value, form.chi
 $('#pageSubmit').on('click', build.bind(null, el));
 ```
 
-* Relies on manipulation of the current tab's DOM, which requires the injection of content script into the active tab.
+* Relies on manipulation of the current tab's DOM, which requires the injection of content script into the active tab
 ```javascript
 chrome.tabs.executeScript({code: 'var element = ' + JSON.stringify(element)}, function() {
   chrome.tabs.executeScript({code: 'var deconstruct = true'}, function () {
