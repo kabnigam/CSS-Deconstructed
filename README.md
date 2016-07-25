@@ -12,18 +12,10 @@ CSS Deconstructed is a chrome extension written in JavaScript and jQuery that al
 * Rebuild the website/element piece by piece, right in front of your eyes!
 * COMING SOON: See exactly which CSS rule is being applied at every step in the process
 
-## Images
-Finding the element to deconstruct using Dev Tools
-![Alt text](./images/shot2.png?raw=true "Optional Title")
+## Use
+![Alt text][gif]
 
-After full deconstruction of element
-![Alt text](./images/shot3.png?raw=true "Optional Title")
 
-In the middle of element reconstruction
-![Alt text](./images/shot4.png?raw=true "Optional Title")
-
-After full reconstruction
-![Alt text](./images/shot1.png?raw=true "Optional Title")
 
 
 
@@ -116,3 +108,4 @@ CSS Deconstructed itself is open source with a [public repository][CSSD].
 
    [CSSD]: <https://github.com/kabnigam/CSS-Deconstructed>
    [webstore]: <https://chrome.google.com/webstore/detail/css-deconstructed/inhlobcefhlmdljoeigpbpdehlpciohh>
+   [gif]: <http://g.recordit.co/ySAG2UczoH.gif>

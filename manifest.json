@@ -3,7 +3,7 @@
 
   "name": "CSS Deconstructed",
   "description": "This extension breaks down then reapplies the CSS (one rule at at time) for a specific element",
-  "version": "0.0.0.2",
+  "version": "0.0.0.3",
 
   "browser_action": {
    "default_icon": "./images/icon.png",
